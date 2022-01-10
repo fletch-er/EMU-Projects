@@ -1,0 +1,31 @@
+Programming Languages
+Introduction to Grammars
+
+Grammar = 
+({S, A, B}, {a, b, c}, S, P)
+Our variable set has three variables, S A B. S is our start variable. P is the production/grammar rules.
+In this grammar, we have 5 rules. 
+What are these rules?
+On the left is one of our variables
+On the right is any combination of any variables and terminals in any order or any form
+To read these rules, is "S goes to AB", "S goes to aA", etc
+We use these rules to create strings (sequences of characters)
+
+	P: S -> AB (rule 1)
+		A -> aA (rule 2)
+		A -> a (rule 3)
+		B -> bBc (rule 4)
+		B -> Lambda (rule 5)
+		
+Deriving a string:
+
+S -> AB (using rule 1)
+	-> AbBc (using rule 4)
+	-> aABbC (using rule 2)
+	-> aabBc (using rule 3)
+	-> aabbBcc (using rule 4)
+	-> aabbcc (using rule 5)
+	
+	Think of these as a series of translations from one set of variables to another synonymous set 
+	Rule number 5 (lambda) means empty string. We can make it disappear.
+	

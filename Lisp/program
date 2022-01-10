@@ -1,0 +1,81 @@
+(defun f1 (list)
+  ; if list is empty, return 0
+  (cond ((null list) 0)
+        ; list is not empty, make sure list is actually of type list, if it is then add 1 and move on
+        ((listp (car list)) (+ 1 (f1 (cdr list))))
+        ; else recursive call without incrementing
+        (t (f1 (cdr list)))
+        )
+)
+
+(defun f2 (list)
+  ; if list is empty, return nil
+  (cond ((null list) nil)
+  ; check if the first item of list is an atom, if yes return t
+  ((atom (car list)) t)
+  ; recursively call on rest of list
+  (t (f2 (cdr list))))
+)
+
+
+(defun f3 (n)
+   (cond ((null n) nil)
+         ((oddp (first n))
+           (cons (first n)
+                 (f3 (rest n))))
+         (t (f3 (rest n))))
+)
+
+(defun f4 (list)
+  (cond ((null list) nil)
+  ((null (cdr list)) (car list))
+  (( < (car list)(car (cdr list))) (f4 (cons (car list) (cdr (cdr list)))))
+  ( t (f4 (cdr list))))
+)
+
+(defun f5 (l)
+    (cond ((null l) nil)
+    (append (f5 (cdr l)) (list (car l))))
+)
+
+(defun f5 (l)
+    (cond ((null l) nil)
+    (t (append (f5 (rest l)) (list (first l)))))
+)
+
+(defun f6 (l)
+    (cond ((null l) nil)
+    ((null (cdr l)) nil)
+    (t (cons (car l) (f6(cdr (cdr l))))))
+)
+
+(defun f7(l i)
+    (cond ((equal i 0) (car l))
+        (t (f7 (cdr l) (- i 1))))
+)
+
+(defun f8 (l)
+    (cond ((numberp l) l)
+        ((null (rest l)) (f8 (first l)))
+        (t (* (f8 (first l)) (f8 (rest l))))))
+
+; helper function for f9
+(defun rmv (e l)
+    (cond ((null l) nil)
+    ((equal (car l) e) (rmv e (cdr l)))
+    ( t (cons (car l) (rmv e (cdr l))))))
+
+(defun f9 (l)
+    (cond ((null l) nil)
+    (t (cons (car l) (f9 (rmv (car l) (cdr l)))))))
+
+; helper function for f10
+(defun mbr(e l)
+    (cond ((null l) nil)
+    ((equalp (car l) e) T)
+    (t (mbr e (cdr l)))))
+
+(defun f10 (l1 l2)
+    (cond ((null l1) nil)
+    ((mbr (car l1) l2) (cons (car l1) (f10 (cdr l1) l2)))
+    (t (f10 (cdr l1) l2))))
