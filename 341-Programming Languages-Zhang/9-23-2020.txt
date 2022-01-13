@@ -1,0 +1,147 @@
+9/21/2020
+PROGRAMMING LANGUAGES
+LECTURE 7
+
+Local Variables, Patterns, Patterns for Lists, Pattern based Recursion
+
+Max of list with local variables
+
+fun max2(L) = 
+	if null REST then FIRST
+	else if FIRST < SECOND then max2(SECOND :: N-2)
+	else max2(FIRST :: N-2);
+	
+Local Variable: let-in-end
+
+	let 
+		val var1 = exp1
+		val var2 = exp2
+		...
+	in 
+		expressions (using var1, var2 ...)
+	end;
+	
+	EX:
+	
+		val L = [1,2,3,4,5]
+		let
+			val FIRST = hd L;
+			val SECOND = hd (tl L);
+			val THIRD = hd (tl(tl L);
+			val N4 = tl (tl (tl (tl L)))
+		in
+			FIRST :: THIRD :: N4
+		end
+		
+In future, we will not write let-in-end more than a couple times. 
+In practice, let-in-end is not a great practice, but we will use it a couple times where it will definitely help. 
+
+Pattern Style
+
+	Pattern Style works for tuples and lists. Makes it much cleaner. The logic is the exact same, but it will make the function look much simpler
+	
+	One of our main problems so far is that the functions can get extremely complicated and obscure the logic. ex: else if (hd L) < hd (tl tl(L)) .... etc
+
+	The primary component of pattern style is pattern matching
+	
+	val T1 = (1, "a", false);
+	val (a,b,c) = T1;				Valid! Could we do something like this in Java? Not really. 
+	val (x,y,z) = (1, "a", false); 	Valid!
+	val (a,b) = T1; 				ERROR
+	
+	val T2 = ((2,3), false);
+	val (a,b) = T2;
+	val ((a,b), c) = T2
+	
+	val T3 = ([2,3], false);
+	val (a,b) = T3;
+	
+There are two important structures to match with patterns: tuples and lists
+
+Patterns for tuples -- matching elements
+	val T1 = (1, "2", (3,4));
+	val (a, b, (c,d)) = T1;
+
+Patterns for lists: key for modern day functional programming
+
+	In tuples we use parenthesis and commas, in lists we use ::
+	head & tail: a :: b 
+	
+	val L1 = [1,2,3,4];
+	val a::b = L1 			This means that A is the head and B is the tail. So, A = 1, B = [2,3,4]
+The better form:
+	val x::xs = L1; 		x for head, xs for tail.
+
+Extend from there: We can match several important patterns together
+
+first & second & rest:
+	val L2 = [1,2,3,4,5]
+	val a::b::c = L2;
+Or in better form:
+	val a::b::cs = L2;		a = head, b = second, cs = tail
+	
+List with one element -- [a]
+	val L3 = [1];
+	val [a] = L3;
+	
+
+Major difference between a::b::c and (a::b)::cs and (a,b)::cs
+
+* (a::b)::cs is a LIST OF LIST *
+We will use this a lot
+
+List of list with head of nil: nil::cs
+	val nil::cs = [nil, [1,2], [3]];
+
+
+Patterns for Tuple and List
+(a,b)::cs
+	val (a,b)::cs = [(1,2), (3,4)];
+	val (a,b)::cs = [(1.0, "2"), (3.0, "4")];
+	
+(a,b,c)::ds
+	val (a,b,c)::ds = [(1,2,3), (3,4,5)];
+	
+(x::xs, y::ys)
+	val (x::xs, y::ys) = ([1,2,3], ["b", "d"]);
+
+How to use for our functions?
+
+	fun len(L) = 
+		if null L then 0
+		else 1+len(tl L);
+		
+	Using pattern style 
+	
+	fun len2 (nil) = 0
+	|	len2(x::xs) = 1 + len2 xs;
+
+
+Another example:
+
+	fun fact n = 
+		if n = 0 then 1
+		else fact(n-1) * n
+		
+	fun fact 0 = 1
+	|	fact n = fact (n-1) * n
+
+--------------------------------------
+
+	fun sumL(L) = 
+	if null L then 0
+	else sumL(tl L) + hd L;
+	
+	fun sumL(nil) = 0
+		sumL(x::xs) = sumL xs + x
+
+--------------------------------------
+
+
+
+
+
+
+
+	
+ 

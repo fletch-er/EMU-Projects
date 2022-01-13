@@ -1,0 +1,212 @@
+9/16/2020
+PROGRAMMING LANGUAGES
+LECTURE 5
+
+A function has two parts:
+	A basic
+	An Inductive Step - Same question on a smaller scale
+
+Answers will be constructed, no guessing.
+Never EVER trace recursions. In this class, we construct the answer instead of verifying it. Idk what this even means.
+We need to change our mindset from "global" to "local"
+
+Some Examples with numbers:
+
+	3 x 5 = 3 + 3 + 3 + 3 + 3
+	Add three, five times. 
+	
+	Remember format: 
+	fun <3> = 
+		if <1> then <2>
+		else <5> with <4>
+	
+	fun mul(a, b)
+		1. B in 
+			Good base case: B = 0, a is arbitrary
+			If b is 0, a x b = 0
+			Base case normally either 0 or 1
+		2. B out
+			If b is 0, anything * 0 is 0, so B out = 0			
+		3. N 
+			mul(a, b)
+		4. N-1 
+			mul(a, b-1)
+		5. ==
+			How to balance? 
+			Well, mul(a,b-1) = 3 x (5-1) = 3 + 3 + 3 + 3 = 12, So,
+			In order to balance them, a x b is the same thing as (a x (b-1)) + another a, as shown above
+			mul(a,b) = mul(a,b-1) + a 
+	
+	ANSWER	
+	fun mul(a,b) =
+	if b=0 then 0
+	else mul(a, b-1) + a;
+	
+		Looking at the balance again:
+			mul(a,b) = mul(a,b-1) + a 
+				if a = 3, b = 5 
+					mul(3,5) = mul(3,4) + 3
+						15  =   12 + 3
+						15	=	15
+	
+	We just need to ensure we have a base case that calculates to an actual value, like 0 in our above case (a x 0 = 0)
+	We also have a control variable, like b, decreasing or increasing in order to meet our base case
+	
+	
+RECURSION WITH LISTS 
+
+	Go through a list and square each element
+	Each individual in the list should be double, or add onto itself.
+	Our N and N-1 case should have the same signature.
+	N and N-1 must be IDENTITICAL function signatures. Same name, same type of parameters, same number of parameters.
+	
+		fun sq(L)
+		
+		1. B In
+			What is the simplest list to square? An empty list! an empty list squared is just an empty list.
+			B in = nil
+		2. B Out
+			empty list squared is still empty
+			B out = nil 
+		3. N: sq(L)
+		4. N-1: sq(tl L)
+		5. ==:
+			sq(L) = sq(tl L)
+			Walk through it:
+				L = [2,3,5]
+				sq(L) = sq(tl L)
+					sq([2,3,5]) = sq([3,5]) So this works to walk through the list, but we need to double each number. How do we do that? Doubling the head and adding it to the list before the tail
+						sq(L) = ((hd L) * (hd L)) :: sq(tl L)
+	
+	ANSWER
+	fun sq(L) = 
+	if null L then nil 
+	else ((hd L) * (hd L)) :: sq(tl L);
+	
+	Walkthrough:
+		sq [2,3,5] -> [4,9,25]
+		== (2*2) :: sq [3,5]
+		== (2*2) :: (3*3) :: sq [5]
+		== (2*2) :: (3*3) :: 25 :: sq [] <- break case 
+		== [4,9,25]
+	
+	-----------------------------------------------------------
+	
+	Reduce a list to the sum of the integers
+	
+	fun sumL(L)
+	1. B in 
+		Easy in case: List is empty. nil
+	2. B out 
+		If list is empty, the sum is 0
+	3. N case 
+		sumL(n)
+	4. N-1 case 
+		since we're dealing with lists, like last time, we need to do the function on the tail
+		N-1: sumL(tl L)
+	5.
+		sumL(n) = sumL(tl L)
+		How do we make these equal?
+		Since sumL(tl L) is everything besides the head...
+		We just need to keep adding the head back onto the list 
+		sumL(L) = sum(tl L) + (hd L)
+	
+	ANSWER
+	fun sumL(L) = 
+	if null L then 0
+	else sumL(tl L) + hd L;
+	
+	-----------------------------------------------------------
+	
+	What about summing up a list of real numbers?
+	Same formula, except we need to make sure it will return a real.
+	All we have to do is turn 0 into 0.0, or use the real(0) function.
+	
+	-----------------------------------------------------------
+	
+	What about reversing a list?
+		
+		val L1 = [1,2,3,4,5]; => [5,4,3,2,1]
+		fun rev(L)
+		1. B in
+			The easiest list to reverse is an empty list. nil or null L1 
+		2. B out
+			An empty list reversed is still an empty list. nil
+		3. N case 
+			rev(L)
+		4. N-1 Case
+			rev(tl L)
+		5. ==
+			This is the ONLY CASE we use the append feature. For now, we will use the default @
+			rev [2,3,4,5] => [5,4,3,2]
+			[2,3,4,5] @ [1] => [5,4,3,2,1]
+			
+			rev(L) = rev(tl) @ [hd L]
+		or	rev(L) = rev(tl) @ ((hd L) :: nil)
+				SAME THING, TOP ONE IS CLEANER
+	ANSWER
+	fun rev(L) = 
+	if null L then nil 
+	else rev(tl L) @ [hd L]
+	
+	---------------------------------------------------------
+	
+	Reversing a string
+		We don't want to do this by using string manipulation. If we exploded the string into a list, we can do the exact same funciton from before 
+		
+	fun rev(L) = 
+	if null L then nil 
+	else rev(tl L) @ [hd L]
+	
+	using this as a template,
+	
+	ANSWER
+	fun revS(s) = implode(rev1(explode s));
+		We use the same formula from before. First, we explode the string into a list and pass that to the previous formula. Then, we implode it back into a list.
+	
+	-------------------------------------------
+	
+	Recursion on Tuple Lists 
+	
+	Summing a tuple list
+	val L2 = [(2,3), (5,7)]; => 2+3+5+7=17
+	
+	Two ways: Directly or indirectly. 
+		Directly:
+			fun sumT21(L)
+			1. B in 
+				What is the simples list of tuples? Once again, it's an empty list.
+			2. B out 
+				What is the sum of an empty list? 0
+			3. N 
+				sumT21(L)
+			4. N-1
+				sumT21(tl L)
+			5. ==
+				How to balance?
+				
+				Well, sumT21(tl L) is going to take the tail of the list, which is the second tuple.
+				sumT21(L) = (#1 (hd L)) + (#2 (hd L)) + sumT21(tl L)
+				In other words, add the first two elements of the first tuple in the list, then the next two
+				
+			fun sumT21(L) = 
+			if null L then 0
+			else (#1 (hd L)) + (#2 (hd L)) + sumT21(tl L);
+			
+			THIS WILL FAIL! ML can not derive the number of elements in the head because it's dumb. 
+			(#1 (hd L)) is what is causing the error. 
+			In other words, we must specify ANYWHERE in the function how many elements are in the tuple.
+		
+			ANSWER
+			fun sumT21(L:(int * int) list) = 
+			if null L then 0
+			else (#1 (hd L)) + (#2 (hd L)) + sumT21(tl L);
+		
+			When we specify what we are expecting in the tuple, ML is fine getting the number index of a tuple, since it knows there are only two elements.
+			YOU MUST MANUALLY INDICATE THE TYPE OF L
+		
+	
+	
+	
+	
+	

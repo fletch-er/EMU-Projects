@@ -1,0 +1,38 @@
+	.ORIG X3000
+
+	LEA R1, INPUT
+	LD R2, A
+	NOT R2, R2
+	ADD R2, R2, #1 ; R2 = -A
+	ADD R3, R3, #8
+	
+LOOP	LDR R0, R1, #0 ;
+	ADD R4, R0, R2 ;
+	BRz FOUND
+	ADD R3, R3, #-1 ; DECREASE COUNTER
+	BRn END
+	ADD R1, R1, #1
+	BR LOOP
+
+FOUND	ADD R7, R7, #1
+	ADD R3, R3, #-1
+	BRz END
+	ADD R1, R1, #1
+	BR LOOP	
+
+END	HALT
+
+
+A	.FILL #2
+
+INPUT	.FILL #8
+	.FILL #1
+	.FILL #2
+	.FILL #2
+	.FILL #3
+	.FILL #1
+	.FILL #2
+	.FILL #3
+	.FILL #2
+
+	.END

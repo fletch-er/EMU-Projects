@@ -1,0 +1,18 @@
+9/9/2020
+PROGRAMMING LANGUAGES
+LECTURE 3
+
+DESTRUCTIVE LIST OPERATORS
+These methods are going to help us take things out of a list, or "destruct" it into smaller items
+
+list1 = [1,2,3]
+list2 = [2.0, real 3]
+list3 = [[1,2], [3,4], [5,6]];
+list4 = [[1,2], [3,4], [4,5,6,7]];
+list5 = [1<2, false, 3<>5]
+
+hd(list3) = return int list: [1,2]
+hd(list5) = since it's a boolean expression, it will return: true
+tl(list1) = entire list, besides the head. Basically "What's left after the head?". Tail is always a list: [2,3]
+hd (tl list1) = first item after the head: 2
+hd (tl (tl list1)) = tl (tl list1) would return you a list with 3 in it, we use the head to get the actual integer

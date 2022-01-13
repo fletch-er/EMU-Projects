@@ -1,0 +1,13 @@
+	.ORIG x3000
+
+	LD R0, A
+	ADD R1, R0, R0 ; R1 <- 2A
+	ADD R1, R0, R1 ; R1 <- 3A
+	ADD R1, R1, R1 ; R1 <- 6A
+	ADD R1, R1, R1 ; R1 <- 12A
+	ADD R7, R0, R1 ; R7 <- 13A
+
+	HALT
+
+A	.FILL x000a
+	.END

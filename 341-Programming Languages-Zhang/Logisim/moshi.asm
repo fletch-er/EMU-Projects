@@ -1,0 +1,18 @@
+	.ORIG X3000
+
+	LEA R1, DATA
+	ADD R2, R2, #10
+
+A	LDR R0, R1, #0
+	ADD R2, R2, #-1
+	BRz END
+	ADD R1, R1, #1
+	BR A
+
+END	HALT	
+
+DATA	.FILL 3
+	.FILL 2
+	.FILL -1
+	
+	.END

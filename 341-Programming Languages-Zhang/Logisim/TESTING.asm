@@ -1,0 +1,29 @@
+	.ORIG X3000
+
+	;Count number of 0's in A
+	
+	AND R7, R7, #0
+
+	LD R0, INPUT
+	LD R1, MASK
+	LD R2, LOOPMAX
+
+
+LOOP	AND R3, R0, R1
+	BRz IS_ZERO
+	ADD R1, R1, R1		
+	ADD R2, R2, #-1
+	BRz END
+	BRp LOOP
+
+IS_ZERO	ADD R7, R7, #1
+	ADD R1, R1, R1
+	ADD R2, R2, #-1
+	BRp LOOP
+	
+END	HALT
+
+INPUT	.FILL 0
+MASK	.FILL 1
+LOOPMAX	.FILL x0008
+	.END

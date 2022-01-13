@@ -1,0 +1,131 @@
+9/14/2020
+PROGRAMMING LANGUAGES
+LECTURE 4
+TUPLES, LISTS, FUNCTIONS, RECURSION
+
+Functions / Recursive Functions
+
+Example: fun firstChar s = hd (explode s);
+	  keyword + name + parameter(s) = ONE value expression, if you have multiple values put it into a tuple
+	  Every function has input type -> return type 
+	  At first, we don't know what type 's' is, but ML is smart enough to derive it. If it can't derive it, you have to indicate it 
+	  Since "explode" is string -> char, and "hd" is char -> string, ML figures out that s is of type "string"
+
+Tuple Ex: fun quot(a,b) = a div b;
+
+Every function must have a type. Even basic functions like "explode" and "real" have a type.
+explode = string -> char list
+real = int -> real 
+
+What about (explode, real) ?
+	This is a tuple of two functions 
+	(fn,fn) = (string -> char list) * (int -> real)
+However, you can NOT put two functions into a LIST, since they will have two different types 
+
+Importantly, functions have types and types can be derived. 
+ML has default types for *, +, and -. ML will default assign the function to int*int.
+	To specify, you can put a colon in the parameter. EX: fun prod(a:real, b:real) :real = a*b
+		There are TONS of ways to specify. you can do it almost anywhere in the function. ML will figure it out.
+In the future, functions will be called First Class Entities since theyre boogie 
+Functions can be assigned to variables
+
+
+
+R E C U R S I O N >:-(
+
+Recursion is similar between Java and ML, although there are specific differences 
+Example:
+		Factorial Recursion in Java:	
+		
+	int factorial(int n) {
+		if (n == 0)
+			return 1
+		else 
+			return factorial(n-1) * n
+	}
+	
+		Factorial Recursion in ML:
+		
+	fun fact n = 
+		if n = 0 then 1
+		else fact(n-1) * n;
+	
+However, recursive knowledge in Java will NOT help with ML recursion.
+
+There is only ONE way to write recursion. In the future, it can be as good as anybodys. This is not true for iteration.
+There are many many ways to write Java code, some better than others, but there is good and bad.
+For recursion, however, over the years you will only improve your logic. For many problems, there is only one way to solve the problem recursively.
+For example, there is only one way to write a recursive factorial function. In this way, once you become better at the logic, recursive code will be as good as the experts. No good or bad, only one way to solve it. 
+In this class, we will not trace through recursive problems. There is only one way to solve the problem. Obviously the logic is hard, but there is no debug. There is only one way to write the problem. 
+We will not be debugging, we will not be going step by step and tracing through what's happening. 
+
+
+
+Let's start by examining the Factorial recursive problem.
+
+5 Questions:
+1) Do you understand the problem? (What is a factorial?) 
+	Ex: A factorial is a function with a value. fact(n) = 1*2*...*n; Do we have a simple instance to prove the result? Ex: fact(0) = 1 
+2) 
+3)
+4)
+5)
+
+	fun fact n = 
+		if n = 0 then 1
+		else fact(n-1) * n;
+
+How to construct a recursion:
+	1) Base in
+	2) Base out 
+	3) N case
+	4) N-1 case 
+	5) N-1 == N 
+
+In our fact(0) factorial example:
+	1) Base in : 0 (n is 0)
+	2) Base out : 1 (fact(0) = 1)
+	3) N case : fact n 
+	4) N-1 case : fact(n-1)
+	5) N == N-1 : fact(n) == fact(n-1)
+	
+Base Formula W/ Numbers:
+
+	fun <3> = 
+		if <1> then <2>
+		else <5> with <4>
+
+Recursive length of list:
+
+	[2,3,5,7]
+	We know the length of this list is 4. 
+	Using base formula:
+		1) Base in : nil 
+		2) Base out: 0
+	
+	fun len(L) = 
+		if null (L) then 0
+		else len(tl L) + 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		

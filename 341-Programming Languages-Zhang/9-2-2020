@@ -1,0 +1,231 @@
+9/2/2020
+PROGRAMMING LANGUAGES
+LECTURE 2
+
+
+SML and Types
+
+SML is similar to Java, but with very different features
+We are going to write LOTS of recursion in SML
+We are NOT doing SML programming, we do it for Learning and Construction
+We will NOT be doing something extensive in SML or writing complete programs
+
+Eventually we will break programming languages into Paradigms
+Many of the current programming languages fall into two paradigms
+
+Designing a new language is not a big deal, so there is no reason to learn many of them
+
+Two Major Approaches: Iteration and Recursion
+and then we group them into their respective paradigm
+
+A programming language must be Universal, meaning utilizing either iteration or recursion
+Visual Basic only has iteration, or old Lisp only has recursion,
+but you must have either or both.
+
+The two foundations for computers: Turing Machine, Church's Lambda Calculus
+									TM - Iteration == Lambda - Recursion
+								
+in SML, we must pay attention to the TYPE, and the NAME
+If you do not provide a name for a variable, it will be called "it"
+
+For negative, use ~
+Either you make it negative using ~ or you define it as negative with ~
+EX:
+	~1 + ~2 = ~3
+==	-1 - 2 = -3
+
+SML is CASE SENSITIVE, ie true/false not True/FALSE
+
+A CHARACTER is represented by the hash sign # and quotes #"A"
+
+DIVISION is done using div and mod for integers (1, 2, 3), or / for reals (1.00, 2.00)
+EX:
+	1/2 			FAIL
+	1 div 2			GOOD
+	11.0/2.0		GOOD
+	11.0/2			FAIL
+	11.0/real 2		GOOD
+"real" is a function to convert int -> real
+Functions and arguments do not use paranthesis
+
+STRING CONCAT is done using the ^ character
+"Boop" ^ "Bap" == "BoopBap"
+
+BOOLEANS are the same, besides
+Not Equals (!=) changes to <>
+
+If you have REAL VALUES, you can NOT apply equal and not equal to them
+1.3 = 1.3;	FAIL
+
+BOOLEAN OPERATORS: andalso, orelse, not
+					 &&		  ||	 !
+EX: 1 < 2 orelse 3 > 4;		bool, true
+==	1 < 2 	|| 	 3 > 4;
+
+In Java: a = (2<3)? 10: 20;		IE, if 2 is less than 3, A is 10. Otherwise, A is 20
+In ML: if (2<3) then 10 else 20;
+
+EXAMPLE:
+	if 1 < 2 then #"X" else #"y";	val it = #"X"
+	
+CONVERSIONS: real, floor, ceil, round, trunc
+
+real: int to real
+trunc: real to int
+
+ord: char to int
+chr: int to char
+
+Scope of function call
+function call ==> fun_name fun_arg
+THE RULE IS: All you have to do is make sure the scope of the function call 
+			 is one value immediately after it
+That means that every function can only have one argument
+
+EX: square(3) would be represented as square 3, since we can only use one argument anyway
+	square 3 + 4 (assuming square actually squared the number) would be 3^2 + 4 = 12
+	
+	square 2 + 1 = 5
+	square (2+1) = 9
+
+	foo(3,4,5) and foo 3 4 5 are COMPLETELY DIFFERENT
+		foo 3 4 5 = (foo 3) 4 5
+		foo (3,4,5) = foo (3,4,5)
+		
+FUNCTION APPLICATION HAS HIGHER PRECENDENCE THAN ANY OPERATOR
+
+	f a b means (f a) b,
+		first apply f to a,
+		take the value f returns (another function)
+		and apply it to b
+
+	chr(trunc(97.0)) OVERKILL but PASS
+	chr(trunc 97.0)  PASS, PREFERRED SYNTAX
+	chr trunc 97.0	 FAIL, DOES SOMETHING ELSE
+	
+	chr trunc 97.0 will assess the scope of chr, which in this case is trunc, which is not a valid scope for chr
+	
+DATATYPES: int, real, bool, string, char THATS IT
+
+Scope of Function Call:
+	real(2)				GOOD
+	real(2) > 1.0		GOOD
+	not real(2) > 1.0	ERROR --> not (real 2) > 1.0
+
+use val to describe a variable
+val a = if (1,2) then 3 else 4
+
+LISTS ARE ABOUT 92% OF WHAT WE WILL USE IN SML
+TUPLES ARE THE OTHER 8%
+
+Recursion is about recursive function calls
+in LISP, everything is a list. even the program is a list.
+
+------------------------------- BREAK ------------------------------------
+
+TUPLES AND LISTS
+
+Remember, the scope of the functin call is one unit after the function name
+if we have multiple values, we can create a tuple of multiple values and treat it as one unit
+EX:	foo(1,2,3) --> () makes 1,2,3 into ONE unit, in this case a unit of 3 values
+
+There is NO such thing as a tuple of 1. It's just an int.
+However, a tuple of none is called a unit
+An empty list is nil
+
+[] =  empty list = DO NOT USE AT ALL EVER
+Instead, use nil. 
+
+THERE ARE TWO WAYS TO TEST A LIST FOR EMPTY
+(1) L = [] <-- DO NOT USE. AUTO FAIL. DIVIDE BY 0. ERROR. ERROR. ERROR.
+(2) null L <-- use this
+
+List Type Constructor: [ ]
+All elements in list MUST be SAME TYPE
+List length can be arbitrary, empty list is nil
+
+Only one way to make a list larger:
+use :: to put a new element on the front of the old list
+EX
+	3::[1,2]; == [3,1,2] int list
+	
+LISTS MUST HAVE ELEMENTS OF THE SAME TYPE
+EACH LIST CAN HAVE ARBITRARY NUMBER OF ELEMENTS
+IF YOU HAVE AN EMPTY LIST IN A LIST OF LISTS, YOU GET []
+YOU CAN INSERT EMPTY LIST INTO FRONT OF LIST
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	

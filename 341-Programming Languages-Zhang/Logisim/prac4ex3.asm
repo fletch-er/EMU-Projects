@@ -1,0 +1,21 @@
+	.ORIG x3000
+
+AAA	LD R0, A
+	ADD R0, R0, #1 ; R0 = A + 1
+	ST R0, A
+	BRz BBB
+	LD R0, ANS
+	ADD R0, R0, #1
+	ST R0, ANS
+	BR AAA
+
+BBB	LD R0, ANS
+	ADD R0, R0, #1
+	ST R0, ANS
+	BR CCC
+
+CCC	HALT
+
+A	.FILL xfffb
+ANS	.FILL X0000
+	.END

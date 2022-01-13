@@ -1,0 +1,182 @@
+
+
+
+
+Iteration (LOOP) can always translate into recursion -- tail recursion
+
+Example of tail recursion:
+	fun bar(n, ans) = 
+		if n=0 then ans
+		else bar(n-1, ans+n);
+
+Recursion translation into iteration is much much more complicated.
+
+PRINCIPLES OF RECURSION 
+
+1	Recursion is sound: based on mathematical induction. The approach is correct. Recursion will solve any problem. If iteration can do it, recursion can. No matter how complicated it is. If iteration can solve it, recursion can too.
+2	Recursion is local: N & N-1. You must ignore loop inference. Focus on N and N-1. N-1 has nothing to do with our loop control, etc.
+3	Recursive thinking is required
+4	Recursion is always constructed, no guessing, no memorizing. Previous answers will help, but you never guess or copy.
+5	There is only one way to write recursions
+
+PRACTICE KEY ISSUES:
+
+What is wrong?
+
+	fun ng(n) = 
+		if n < 1 then nil
+		else ((~1)*n :: ((~1)*(n-1));
+		
+	ANS: No recursive call! A recursive function must call itself.
+	
+	
+	fun ng(n) if n = ~1 then ~1 else n :: ng(n-1)
+	
+	ANS: This is not even a function. Need an equal sign. Possible typo.
+	
+	
+	fun ng(n) =
+		if n = ~1 then ~1
+		else ~n :: ng(n-1)
+		
+	ANS: Base case and N-1 case type must agree. Since we are using ::, our base case MUST RETURN A LIST (not an int). List is likely an empty list.
+	
+	
+	fun ng(n) = 
+		if (n=0) then nil
+		else n::ng(n+1);
+		
+	ANS: N-1 case must step towards base case, not away from it.
+	
+	
+	fun ng(x) = 
+		if null x then nil
+		else ~x+1::(ng(x));
+		
+	fun ng(n) =
+		if null n then nil
+		else ng(n-1) * n-(2*n);
+		
+	ANS: In the first function ng(x), not only does the function never end, but function types must agree
+	
+RECURSION PRACTICE 
+
+Protocol:
+	1	Understand the problem
+	2 	Type of function. Write down the type of the function.
+	3	Apply Principle (5 steps)
+	4	Double Check. Does n == n-1? 
+	5	More
+	
+Principle:
+	1	Base in
+	2 	Base out
+	3	N case
+	4	N-1 case
+	5 	N == N-1
+	
+Checkpoints:
+	1	Base case in/out must be a constant (no function)
+	2	N is the function with proper parameters
+	3	N-1 is the exact same function with exact same parameters types
+	4	N-1 goes TOWARDS the base case 
+	5 	Base out must have same type with N-1 
+	
+	
+--- Examples: ---
+---
+	ng(5) = [~5, ~4, ~3, ~2, ~1]
+	Type: int -> int list
+	
+	1 Base in: 0 (int)
+	2 Base out: nil ('int' list)
+	3 N case: ng(n)
+	4 N-1 case: ng (n-1)
+	5 n == n-1
+	
+	Use examples to figure out.
+	n = 5:
+		ng(5) = [~5, ~4, ~3, ~2, ~1]
+	n = 4:
+		ng(4) = [~4, ~3, ~2, ~1]
+	n = 3:
+		ng(4) = [~3, ~2, ~1]
+	
+	From this, we see we should just add the negative of the head onto the rest of the recursive function 
+	
+	ANS:
+	fun ng(n) = 
+		if n=0 then nil
+		else ~n::ng(n-1)
+---
+		maxTuple2[(1.0, 2.0), (5.0,4.0)] -> [2.0, 5.0]
+		Type: (real*real) list -> real list 
+	
+	1 Base in: nil
+	2 Base out: nil 
+	3 N case: maxTuple2(L)
+	4 N-1 case: maxTuple2(tl L)
+	5 Balance?
+	
+	if #1(hd L) > #2(hd L) then #1(hd L) :: n-1 
+	(if the first number is bigger, cons onto rest of list)
+	
+	ANS:
+	fun maxTuple2(L: (real*real)list) = 
+		if null L then nil
+		else if #1(hd L) > #2(hd L) then #1(hd L) :: maxTuple2(tl l)
+		else #2(hd L) :: maxTuple2(tl l)
+---
+	
+	
+--- PATTERN BASED RECURSION ---
+	
+	Pattern based recursion is the same as regular recursion, it just makes it prettier and easier to see.
+	
+	There are three patterns:
+		1 Tuples
+		2 Lists
+		3 | means if then else (if you have multiple if-then-else cases, use | to seperate them)
+
+Examples:
+
+	fun sumLL(L) = 
+		if null L then 0
+		else if null (hd L) then sumLL(tl L)
+		else hd (hd L) + sumLL(tl(hd L) :: (tl L));
+		
+	For this problem, since we have three cases (if, else if, else) we can use three vertical bars |
+	Type of function: int list list -> int 
+	To translate into pattern style:
+	
+	fun sumLL(nil) = 0
+	|	sumLL(nil::cs) = sumLL cs
+	|	sumLL((a::b)::cs) = a + sumLL(b::cs);	
+	
+---
+
+	fun maxL(L) = 
+		if null(tl L) then hd L
+		else if (hd L) < hd (tl L) then maxL(tl L)
+		else maxL(hd L:: (tl (tl L)));
+		
+	Translate:
+	
+	fun maxL([a]) = a
+	|	maxL(a::b::cs) = if a<b then maxL(b::cs) else maxL(a::cs);
+	
+	One problem with pattern based: Since our second if-then case had to test something, we still have to use if-else
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

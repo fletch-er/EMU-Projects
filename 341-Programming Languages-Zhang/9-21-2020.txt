@@ -1,0 +1,61 @@
+9/21/2020
+PROGRAMMING LANGUAGES
+LECTURE 6
+
+More Complex Recursion
+
+Function to return true if number of elements in list is even, false if odd.
+	evenLen [1,2,3,4] = 4 = true
+	evenLen [1,2,3,4,5] = 5 = false 
+	
+	Take two out each time, eventually if only one item is left, the list length was odd. If there are no items left, the list length was even.
+	
+		If Case
+	1 B in		: nil
+	2.1 B out	: true
+		Else if Case 
+	1.2 B in	: tl is nil
+	2.2 B out 	: false 
+		Else Case 
+	3.  N		: evenLen(n)
+	4.  N-1 	: evenLen(tl (tl n))
+	5.  ==		: n == n-1
+	
+	
+	fun evenLen L = 
+		if null L then true 
+		else if null(tl L) then false
+		else evenLen(tl (tl L));
+		
+	----------------------------------
+	
+Function to get the largest number of a non empty list
+
+	HARDEST SINGLE FUNCTION RECURSION
+
+	val L = [3,2,5,1,4];
+	
+	Examine:
+		[3,2,5,1,4] => 5
+		[2,5,1,4]   => 5
+		[5,1,4]     => 5
+		[1,4] 		=> 1 ???
+		[4] 		=> 4 ???
+		[] 			=> 	 ???
+		
+		So base case and == are going to be complicated...
+	
+			If Case
+	1 	B in	: null (tl L)
+	2.1 B out	: hd L, if the tail is empty, return the head
+	
+		Else if Case
+	1.2 B in	: 
+	2.2 B out 	: 
+		
+		Else Case 
+	3.  N		: maxL(L)
+	4.  N-1 	: What is n-1? Get rid of the smaller of the first two. Guaranteed that the one we remove is not the max, since the number next to it is larger
+	5.  ==		: N == N-1, since we take the smaller of the two out, the larger number stays in N-1
+	
+	
